@@ -1,0 +1,14 @@
+
+/*div로 넣으면 무조건 root를 의미 ( <></>, <Fragment></Fragment> */
+div{
+  background: rgb(152,134,234);
+  color:greenyellow;
+  padding:50px;
+  font-family: "Century Gothic";
+  text-align: center;
+}
+
+h1{
+  color:floralwhite;
+  font-family: "배달의민족 을지로체 TTF";
+}

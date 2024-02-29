@@ -1,0 +1,21 @@
+div{
+    background: rgb(152,134,234);
+    color:greenyellow;
+    padding:50px;
+    font-family: "Century Gothic";
+    text-align: center;
+}
+h1{
+    color:red;
+}
+
+h3{
+    background: orangered;
+}
+.class1{
+    color:palegreen;
+}
+
+#id2{
+    color:yellow;
+}
