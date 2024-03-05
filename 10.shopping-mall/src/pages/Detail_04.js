@@ -1,17 +1,14 @@
 import {Container, Row, Col, Button, Nav} from "react-bootstrap";
 import { useParams } from 'react-router-dom';
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import './../App.css';
-import {Context1} from "../App";
 
 /*
-    Single page Application 단점
-    1) 컴포넌트 간의 state 공유 어려움
-       특히, 형제간의 컴포넌트의 공유
-    
-    공동으로 사용할 수 있는 방법
-    1) Context Api 문법 -> Detail에 Context1으로 넣은게 있음
-    2) Redux 외부라이브러리 사용
+    전환 애니메이션
+    1) css에 애니메이션 동작 전 스타일(className)
+    2) css에 애니메이션 동작 후 스타일(className)
+    3) transition 속성 추가
+    4) 원하는 태그에 속성 className 넣고 빼기로 사용하면 됨
  */
 function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
     // App.js에서 Route path='/detail' element={<Detail cafes={cafes}/>넘긴거 props로 받아옴
@@ -34,8 +31,16 @@ function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
     let [tab, setTab] = useState(0);
     let [fade2,setFade2] = useState('');
 
-    let a = useContext(Context1);
-    console.log(a);
+    useEffect(()=>{
+        setTimeout(()=>{
+            setFade2('end')
+        },200)
+
+        /*fade값이 바뀌면 end를 className에 넣을것 */
+        return ()=>{
+            setFade2('')
+        }
+    },[])
 
     return(
         <div className={`start ${fade2}`}>
@@ -72,14 +77,14 @@ function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
                 </Nav.Item>
             </Nav>
 
-            <TabContent tab={tab} cafes={props.cafes[0]}/>
+            <TabContent tab={tab}/>
         </div>
     )
 }
 
-function TabContent({tab,cafes}){
+// 깃허브
+function TabContent({tab}){
     let [fade,setFade] = useState('');
-    let {stock} = useContext(Context1);
 
 
     // return값이 먼저 실행되고 나서 setTimeout이 실행됨 / 이 구문은 .tab이 바뀔때마다 내용에 애니메이션이 들어감
@@ -93,20 +98,11 @@ function TabContent({tab,cafes}){
             setFade('')
         }
     },[tab]) // tab이 변결될때마다 애니메이션 효과가 들어가게 - className=start or end
-/*
-    useEffect(()=>{
-        setTimeout(()=>{
-            setFade2('end')
-        },200)
 
-        /!*fade값이 바뀌면 end를 className에 넣을것 *!/
-        return ()=>{
-            setFade2('')
-        }
-    },[])*/
+
     return (
         <div className={`start ${fade}`}> {/*className이 start만 있다가 end가 붙으면 ani가 됨 className='start end'*/}
-            {[<div>{cafes.title}</div>, <div>{stock}왜안돼</div>, <div>내용2</div>][tab]}
+            {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}
         </div>
     )
 }

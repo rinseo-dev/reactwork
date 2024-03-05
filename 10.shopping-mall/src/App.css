@@ -9,3 +9,23 @@
   background-repeat: no-repeat;
   /*background-position: center;*/
 }
+
+/* 애니메이션 */
+.start{
+  opacity:0;
+}
+.end{
+  opacity: 1;
+  transition:opacity 0.5s; /**opacity를 0.5초동안**/
+}
+.tcolor{
+  color:red;
+}
+/*
+.start{
+  transform: scale(0);
+}
+.end{
+  transform: scale(1);
+  transition:all 2s;
+}*/

@@ -1,17 +1,9 @@
 import {Container, Row, Col, Button, Nav} from "react-bootstrap";
 import { useParams } from 'react-router-dom';
-import {useContext, useEffect, useState} from "react";
-import './../App.css';
-import {Context1} from "../App";
+import {useEffect, useState} from "react";
 
 /*
-    Single page Application 단점
-    1) 컴포넌트 간의 state 공유 어려움
-       특히, 형제간의 컴포넌트의 공유
-    
-    공동으로 사용할 수 있는 방법
-    1) Context Api 문법 -> Detail에 Context1으로 넣은게 있음
-    2) Redux 외부라이브러리 사용
+    탭 만들기
  */
 function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
     // App.js에서 Route path='/detail' element={<Detail cafes={cafes}/>넘긴거 props로 받아옴
@@ -32,13 +24,9 @@ function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
     })
 
     let [tab, setTab] = useState(0);
-    let [fade2,setFade2] = useState('');
-
-    let a = useContext(Context1);
-    console.log(a);
 
     return(
-        <div className={`start ${fade2}`}>
+        <>
             <Container>
                 <Row>
                     <Col md={6}>
@@ -51,8 +39,8 @@ function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
                         {/*<h4>{props.cafes[id].title}</h4> 그다음은 이런형태로  id를 사용했고*/}
                         {/*여기서는 findId값을 사용했음*/}
 
-                        <h4 className='tcolor'>{findId.title}</h4>
-                        <p>{findId.content}</p>
+                        <h4>{findId.title}</h4>
+                        <h4>{findId.content}</h4>
                         <h4>{findId.price}</h4>
                         <Button variant="secondary">주문하기</Button>
                     </Col>
@@ -71,44 +59,67 @@ function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
                     <Nav.Link eventKey="link-2" onClick={()=>{setTab(2)}}>탭2</Nav.Link>
                 </Nav.Item>
             </Nav>
-
-            <TabContent tab={tab} cafes={props.cafes[0]}/>
-        </div>
+            {/*
+            각 탭마다 맞는 번호의 내용이 뜨게 하고 싶음
+            <div>내용0</div>
+            <div>내용1</div>
+            <div>내용2</div>
+            */}
+            {/*
+            이렇게 해도 되지만 비효율적
+            {tab == 1 ? <div>내용1</div> : null}
+            {tab == 2 ? <div>내용2</div> : null}
+            {tab == 0 ? <div>내용0</div> : null}
+            */}
+            {/*
+            삼항연산자 사용
+            {
+                tab == 0 ? <div>내용0</div> : ( tab == 1 ? <div>내용1</div> : tab == 2 ? <div>내용2</div> : null)
+            }
+            */}
+            <TabContent tab={tab} name={'kim'} age={30}/>
+        </>
     )
 }
 
-function TabContent({tab,cafes}){
-    let [fade,setFade] = useState('');
-    let {stock} = useContext(Context1);
-
-
-    // return값이 먼저 실행되고 나서 setTimeout이 실행됨 / 이 구문은 .tab이 바뀔때마다 내용에 애니메이션이 들어감
-    useEffect(()=>{
-        setTimeout(()=>{
-            setFade('end')
-        },200)
-
-        /*fade값이 바뀌면 end를 className에 넣을것 */
-        return ()=>{
-            setFade('')
-        }
-    },[tab]) // tab이 변결될때마다 애니메이션 효과가 들어가게 - className=start or end
+// 컴포넌트로 만들 때는 return을 해줘야함
+/*function TabContent(props){ // 컴포넌트에서 tab값 받아서 사용
+    if( props.tab == 0){
+        return <div>내용0</div>
+    }else if( props.tab ==1){
+        return <div>내용1</div>
+    }else{
+        return <div>내용2</div>
+    }
+}*/
 /*
-    useEffect(()=>{
-        setTimeout(()=>{
-            setFade2('end')
-        },200)
 
-        /!*fade값이 바뀌면 end를 className에 넣을것 *!/
-        return ()=>{
-            setFade2('')
-        }
-    },[])*/
-    return (
-        <div className={`start ${fade}`}> {/*className이 start만 있다가 end가 붙으면 ani가 됨 className='start end'*/}
-            {[<div>{cafes.title}</div>, <div>{stock}왜안돼</div>, <div>내용2</div>][tab]}
-        </div>
-    )
+// props대신 {tab}값 받아서 사용.
+function TabContent({tab,name,age}){ // {tab, name, age}등 여러개 받기도 가능함
+    console.log(tab);
+    console.log(name);
+    console.log(age);
+    if(tab == 0){
+        return <div>내용0</div>
+    }else if(tab ==1){
+        return <div>내용1</div>
+    }else{
+        return <div>내용2</div>
+    }
 }
+*/
+
+/*
+let a = [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>]
+a[0]
+a[1]
+a[2]
+이런 형식으로 하려는 경우
+*/
+function TabContent({tab}){
+    return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]
+    // 배열로 보고
+}
+// 야이 엄청 간단하네 뭐냐이거
 
 export default Detail;

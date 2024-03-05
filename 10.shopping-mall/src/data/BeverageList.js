@@ -10,7 +10,7 @@ let cList =
         {
             id:0,
             title:"coffee",
-            content:"all jombie",
+            content:"all zombie",
             price:6500
         },
         {
