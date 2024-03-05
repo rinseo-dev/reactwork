@@ -5,6 +5,12 @@ import {Button, Navbar, Container, Nav} from 'react-bootstrap';
 import logo from './logo.svg';
 import Header from "./common/Header";
 import Footer from "./common/Footer";
+/*
+react-bootstrap을 사용하려면 먼저 cdn을 index.html이나 index.js에 넣어주고
+사용할 프로젝트에 npm install react-bootstrap bootstrap를 해줌
+그런 뒤에 사용할 것들을 모두 import로 넣어주면 됨
+import {Button, Navbar, Container, Nav} from 'react-bootstrap'; 이런 형식
+*/
 
 
 function App() {

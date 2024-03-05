@@ -16,7 +16,9 @@ export default function Header(){
                     <button onClick={handleShow}>로그인</button>
                 </div>
             </div>
-            { show && <Login show={show} handleClose={handleClose}/> }{/*조건부 렌더링*/}
+
+                <Login show={show} handleClose={handleClose}/>
+            {/*조건부 렌더링*/}
             {/*모달코드를 여기에 작성했을때 됐는데 왜 안되는거여*/}
         </>
     )

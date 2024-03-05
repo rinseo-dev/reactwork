@@ -16,7 +16,8 @@ function App() { // 이 안에서 선언한 변수는 App안에서만 사용함
 
     //let title =['이레구내식당','동남집','얌샘김밥'];
     let [title, setTitle] = useState(['트리니티','이레구내식당','동남집','얌샘김밥']);
-
+    // setTitle은 변경되는 값을 받아서 title에 넣어줌
+    
     let [modal,setModal] = useState(false); // true면 모달창이 보이게 할것
 
     // 기존 like
@@ -50,6 +51,7 @@ function App() { // 이 안에서 선언한 변수는 App안에서만 사용함
     let[inputValue, setInputValue] = useState('');
     // 사용자가 input에 값을 넣을 때 setInputValue가 가져와서 inputValue에 넣어줌
 
+    
     // map()함수
     let arr = [3,6,8];
     // arr배열에 있는 개수만큼 돌림
@@ -58,21 +60,27 @@ function App() { // 이 안에서 선언한 변수는 App안에서만 사용함
     });
 
     [3,6,8].map((a)=>{
-        //console.log(a);
+        // console.log(a);
+        
+        // map()안에 매개변수를 넣어주면 배열에 있는 차례대로 하나씩 매개변수에 들어옴
+        // 출력 하면 3,6,8 순서대로 출력
+        
     });
     // 배열에 있는 값을 하나씩 a에 넣었고, 그걸 출력했음
 
     let newArr = [2,7,9,8].map(()=>{
         return '172638';
-        // return을 했으므로 newArr안에 ['172638','172638','172638']가 들어가게 됨
+        // return을 했으므로 newArr안에 ['172638','172638','172638','172638']가 들어가게 됨
     });
     //console.log(newArr);
+    // 출력하면 ['172638','172638','172638','172638']
 
     // newArr2에  4,14,18을 넣고 싶을 때
     let newArr2 = [2,7,9].map((b)=>{
         return b*2;
     });
     //console.log(newArr2);
+    // 출력 : [4,14,18]
     /*
        JavaScript의 map() 메서드는 배열 내의 각 요소에 대해 주어진
        함수를 호출한 결과를 모아서 새로운 배열을 반환합니다.
@@ -80,7 +88,7 @@ function App() { // 이 안에서 선언한 변수는 App안에서만 사용함
        이 경우에는 배열 [2, 7, 9]의 각 요소를 가리키는 것입니다.
        그리고 이후에 b * 2를 통해 각 요소를 2배로 만든 후, 그 값을 새로운 배열에 저장합니다.
 
-        따라서 map() 안에서 b의 역할은 현재 순회 중인 배열의 각 요소를 가리키는 것입니다.
+        따라서 map() 안에서 b의 역할은 현재 순회 중인 배열의 각 요소를 가f리키는 것입니다.
      */
 
 
@@ -89,8 +97,12 @@ function App() { // 이 안에서 선언한 변수는 App안에서만 사용함
           <h2 className="title1">맛집 추천 Blog</h2>
           {/*
           <button onClick={() => {setTitle(['이향','얌샘김밥','동우북어'])}}>글 수정</button>
+           버튼을 클릭하면 setTitle에 setTitle([배열])값이 들어가게 됨
+          르퍼켵 useState에 있는 원본 배열 값이 클릭을 통해 들어온 배열로 바뀌게 됨
+
           이렇게 하면 되긴 하지만 복사해서 사용할것
           */}
+
           {/*setTitle()안에 바꾸고싶은 매개변수를 넣어줌
           단, onClick={()=>{setTitle('이향')}} 이렇게 한다고 해서 모두 '이향'으로 변경되는건 아님 */}
 
@@ -98,6 +110,10 @@ function App() { // 이 안에서 선언한 변수는 App안에서만 사용함
           <button onClick={() => {
               let copy = [...title]; // let copy = '이레구내식당','동남집','얌샘김밥'
               /*
+                 무엇인가 값이 바뀌었을 때 주소가 재렌더링이 이루어 지는데
+                 단순히 새로운 이름의 변수에 넣는다고 해서 배열이 가진 주소가 바뀌지 않음.
+                 [...배열이름]을 사용해서 배열에 쌓여있던 값들을 각각 가져와서 다시 배열로 만들어줌
+
                  '...'은 spread operator문법
                  array나 object의 자료형의 왼쪽에 붙일 수 있다
                  의미 : 괄호를 벗겨서 새로운 array나 object를 만들어 반환
@@ -153,15 +169,18 @@ function App() { // 이 안에서 선언한 변수는 App안에서만 사용함
                   return (
                       <div className="list" key={i}>  {/*key={i}를 넣어줘야 콘솔오류 사라짐. 리액트법칙..?*/}
                           {/*<h4>{title[1]}</h4>*/}
-                          {/*<h4 onClick={() => {setModal(!modal)}}>{title[i]}</h4>*/}
-                          <h4 onClick={() => {
-                              setModal(!modal)
-                          }}>{t}</h4>
-                          {/*title에 있는 값을 t에 넣어서 하나씩 출력하게 됨*/}
+                          {/*
+                          <h4 onClick={() => {setModal(!modal)}}>{title[i]}</h4>
+                          // 여기는 한번 돌때마다 i에 index값이 들어오게 됨
+                          */}
+                          {/*<h4 onClick={() => {setModal(!modal)}}>{t}</h4>
+                             // title에 있는 값을 t에 넣어서 하나씩 출력하게 됨
+                             */}
+                          <h4 onClick={()=>{setModal(!modal); setModalTitle(i)}}>{t}</h4>
+                          {/*index값과 일치하는 t를 출력..?*/}
 
                           <p>2월 28일<span onClick={() => {
-                              {/*setLike(like[i]+1)*/
-                              }
+                              {/*setLike(like[i]+1)*/}
                               let copy2 = [...like]; /*[like]로 넣으면 주소가 들어가는것*/
                               copy2[i] = copy2[i] + 1;
                               setLike(copy2);
