@@ -20,7 +20,7 @@ let cList =
             price:7000
         },
         {
-            id:3,
+            id:2,
             title:"latte",
             content:"only jeju",
             price:7500

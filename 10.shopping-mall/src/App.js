@@ -27,6 +27,7 @@ import cList, {num1,num2} from './data/BeverageList';
 import {Routes, Route, Link, useNavigate, Outlet} from "react-router-dom";
 import Detail from "./pages/Detail";
 import axios from "axios";
+import Cart from "./pages/Cart";
 
 /*
    - AJAX 사용
@@ -37,7 +38,7 @@ import axios from "axios";
 export let Context1 = createContext();
 
 function App() {
-    let [stock, setStock] = useState([10,11,12]);
+    let [stock, setStock] = useState([10,11,12]); // stock에 배열 값을 넣어서 사용
     let [cafes,setCafes] = useState(cList);
     // console.log(cList);
 
@@ -146,7 +147,7 @@ function App() {
             }/>
 
 
-            <Route path='/cart' element={<div>장바구니</div>}/>
+            <Route path='/cart' element={<Cart/>}/>
             <Route path='*' element={<div>404 Not Found</div>}/> {/*404페이지*/}
 
             <Route path='/detail/:id' element={
@@ -198,7 +199,12 @@ function CListImg(props){ // 넘겨주고자 하는 변수이름과 동일하게
         <>
             <Col md={4}>
                 {/*<img src={`${process.env.PUBLIC_URL}/img/cafe3.jpg`} width="80%"/>*/}
-                <img src={`${process.env.PUBLIC_URL}/img/cafe${props.i}.jpg`} width="80%"/>
+                {/*클릭하면 이동할 수 있게 a태그, navigate*/}
+                <a href={`./detail/${props.i-1}`}>
+                    <img src={`${process.env.PUBLIC_URL}/img/cafe${props.i}.jpg`} width="80%"/>
+                </a>
+
+                {/*onClick navigate*/}
                 <h4>{props.cafes.title}</h4>
                 <p>{props.cafes.price}</p>
             </Col>

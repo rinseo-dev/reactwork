@@ -1,17 +1,14 @@
-import {Container, Row, Col, Button, Nav} from "react-bootstrap";
+import {useContext, Container, Row, Col, Button, Nav} from "react-bootstrap";
 import { useParams } from 'react-router-dom';
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import './../App.css';
-import {Context1} from "../App";
+import {useDispatch, useSelector} from "react-redux";
+import {addCart, decrease} from "../store";
+
 
 /*
-    Single page Application 단점
-    1) 컴포넌트 간의 state 공유 어려움
-       특히, 형제간의 컴포넌트의 공유
-    
-    공동으로 사용할 수 있는 방법
-    1) Context Api 문법 -> Detail에 Context1으로 넣은게 있음
-    2) Redux 외부라이브러리 사용
+    Redux 사용
+    1) 설치 : npm i @reduxjs/toolkit@1.8.1 react-redux
  */
 function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
     // App.js에서 Route path='/detail' element={<Detail cafes={cafes}/>넘긴거 props로 받아옴
@@ -34,8 +31,16 @@ function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
     let [tab, setTab] = useState(0);
     let [fade2,setFade2] = useState('');
 
-    let a = useContext(Context1);
-    console.log(a);
+    let dispatch = useDispatch()
+    let state = useSelector((state)=>{return state})
+
+    useEffect(()=>{
+        setTimeout(()=>{setFade2('end')}, 200)
+        return()=>{
+            setFade2('')
+        }
+    },[])
+
 
     return(
         <div className={`start ${fade2}`}>
@@ -50,16 +55,16 @@ function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
                         {/*<p>{props.cafes[0].title}</p>이런 형태였는데 App.js에서 넘어온 값을 받았음 */}
                         {/*<h4>{props.cafes[id].title}</h4> 그다음은 이런형태로  id를 사용했고*/}
                         {/*여기서는 findId값을 사용했음*/}
-
                         <h4 className='tcolor'>{findId.title}</h4>
                         <p>{findId.content}</p>
                         <h4>{findId.price}</h4>
                         <Button variant="secondary">주문하기</Button>
+                        <Button variant="danger" onClick={() => {dispatch(addCart(findId))}}>장바구니</Button>
                     </Col>
                 </Row>
             </Container>
 
-            <Nav variant="tabs" defaultActiveKey="/home">
+            <Nav variant="tabs" defaultActiveKey="link-0">
                 <Nav.Item>
                     <Nav.Link eventKey="link-0" onClick={()=>{setTab(0)}}>탭0</Nav.Link>
                 </Nav.Item>
@@ -79,7 +84,6 @@ function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
 
 function TabContent({tab,cafes}){
     let [fade,setFade] = useState('');
-    let {stock} = useContext(Context1);
 
 
     // return값이 먼저 실행되고 나서 setTimeout이 실행됨 / 이 구문은 .tab이 바뀔때마다 내용에 애니메이션이 들어감
@@ -106,7 +110,7 @@ function TabContent({tab,cafes}){
     },[])*/
     return (
         <div className={`start ${fade}`}> {/*className이 start만 있다가 end가 붙으면 ani가 됨 className='start end'*/}
-            {[<div>{cafes.title}</div>, <div>{stock}왜안돼</div>, <div>내용2</div>][tab]}
+            {[<div>{cafes.title}</div>, <div>왜안돼</div>, <div>내용2</div>][tab]}
         </div>
     )
 }

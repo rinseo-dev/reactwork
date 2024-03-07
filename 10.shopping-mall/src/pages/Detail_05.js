@@ -8,6 +8,7 @@ import {Context1} from "../App";
     Single page Application 단점
     1) 컴포넌트 간의 state 공유 어려움
        특히, 형제간의 컴포넌트의 공유
+       -> 부모의 name={name}을 props로 자식에게 넘겨줘야 사용할 수 있음. 이것이 단점
     
     공동으로 사용할 수 있는 방법
     1) Context Api 문법 -> Detail에 Context1으로 넣은게 있음
@@ -34,8 +35,11 @@ function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
     let [tab, setTab] = useState(0);
     let [fade2,setFade2] = useState('');
 
+    /*
+    출력 확인용
     let a = useContext(Context1);
     console.log(a);
+    */
 
     return(
         <div className={`start ${fade2}`}>
@@ -79,7 +83,7 @@ function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
 
 function TabContent({tab,cafes}){
     let [fade,setFade] = useState('');
-    let {stock} = useContext(Context1);
+    let {stock} = useContext(Context1); // Context1값을 stock에 넣어서 출력??
 
 
     // return값이 먼저 실행되고 나서 setTimeout이 실행됨 / 이 구문은 .tab이 바뀔때마다 내용에 애니메이션이 들어감

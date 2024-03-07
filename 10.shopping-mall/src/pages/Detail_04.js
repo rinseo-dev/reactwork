@@ -31,6 +31,7 @@ function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
     let [tab, setTab] = useState(0);
     let [fade2,setFade2] = useState('');
 
+    // useEffect 사용법이 중요함 - 애니메이션이 먹는지가 중요한게 아님
     useEffect(()=>{
         setTimeout(()=>{
             setFade2('end')

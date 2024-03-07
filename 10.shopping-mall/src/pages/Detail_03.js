@@ -76,13 +76,14 @@ function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
             {
                 tab == 0 ? <div>내용0</div> : ( tab == 1 ? <div>내용1</div> : tab == 2 ? <div>내용2</div> : null)
             }
+            () 괄호는 없어도 됨. 헷갈리지 않게 넣은 것
             */}
             <TabContent tab={tab} name={'kim'} age={30}/>
         </>
     )
 }
 
-// 컴포넌트로 만들 때는 return을 해줘야함
+// 컴포넌트로 만들 때는 return을 해줘야함 - if문 사용
 /*function TabContent(props){ // 컴포넌트에서 tab값 받아서 사용
     if( props.tab == 0){
         return <div>내용0</div>
@@ -92,8 +93,8 @@ function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
         return <div>내용2</div>
     }
 }*/
-/*
 
+/*
 // props대신 {tab}값 받아서 사용.
 function TabContent({tab,name,age}){ // {tab, name, age}등 여러개 받기도 가능함
     console.log(tab);
@@ -117,8 +118,10 @@ a[2]
 이런 형식으로 하려는 경우
 */
 function TabContent({tab}){
+    /* let  a = [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>] */
+
     return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]
-    // 배열로 보고
+    // 배열로 보고 작성된 것, 내용0은 index 0번, 내용1은 1번인 상황
 }
 // 야이 엄청 간단하네 뭐냐이거
 

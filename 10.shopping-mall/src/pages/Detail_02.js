@@ -18,7 +18,7 @@ import {useEffect, useState} from "react";
      }
 
      컴포넌트는
-     1) 생성이 될 수도 있고(mount)
+     1) 생성이 될 수도 있고(mount) - 컴포넌트가 생성되었다 = mount 되었다
      2) 재렌더링이 될 수도 있고(update)
      3) 삭제가 될 수도 있다(unmount)
 

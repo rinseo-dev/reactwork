@@ -45,9 +45,10 @@ let BlueBtn = styled.button`
 `;
 
 let Btn = styled.button`
-    background: ${props=>props.bg};
+    background: ${props=>props.bg}; /*버튼중에 속성의 이름이 bg인것 <Btn bg=xxx> */
     padding:10px;
     color: ${props=>props.bg == 'blue' ? 'white' : 'black'};
+    /*bg 속성 값을 읽어와서  blue와 동일하면 color색상을 white,아니면 black*/
 `;
 
 function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
