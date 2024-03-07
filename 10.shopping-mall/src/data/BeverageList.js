@@ -22,7 +22,13 @@ let cList =
         {
             id:2,
             title:"latte",
-            content:"only jeju",
+            content:"only Jeju",
+            price:7500
+        },
+        {
+            id:3,
+            title:"ade",
+            content:"only Busan",
             price:7500
         }
      ];

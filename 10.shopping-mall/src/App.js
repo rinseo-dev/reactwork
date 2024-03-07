@@ -7,7 +7,7 @@ react-bootstrap을 사용하려면 먼저 cdn을 index.html이나 index.js에 �
 그런 뒤에 사용할 것들을 모두 import로 넣어주면 됨
 import {Button, Navbar, Container, Nav} from 'react-bootstrap'; 이런 형식
 */
-import {createContext, useState} from "react";
+import {createContext, useEffect, useState} from "react";
 
 // import cafe1 from '../public/img/cafe1.jpg';
 /*
@@ -28,6 +28,8 @@ import {Routes, Route, Link, useNavigate, Outlet} from "react-router-dom";
 import Detail from "./pages/Detail";
 import axios from "axios";
 import Cart from "./pages/Cart";
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+
 
 /*
    - AJAX 사용
@@ -35,16 +37,85 @@ import Cart from "./pages/Cart";
  */
 
 // java에서 사용하는 static과 Context가 같다고 보면 됨. 단, Redux를 더 많이 사용함
-export let Context1 = createContext();
+// export let Context1 = createContext();
 
+
+
+/*
+    Redux 사용
+    1) 설치 : npm i @reduxjs/toolkit@1.8.1 react-redux
+
+    ajax에서 실시간으로 재전송 자동으로 하기
+    설치 : npm i react-query
+ */
 function App() {
+    // localStorage 로컬스토리지 부분
+    localStorage.setItem('name','kim'); // 키,값 형태로 들어감
+
+    let obj = {'tel':'010-1111-2222'}
+    // localStorage.setItem('objTel',obj)
+    // 이렇게 저장했더니 key:objTel, value[object Object]로 들어옴
+    // 저장 값을 json 형태로 바꿔서(직렬화) 넣어야함
+    
+    // JSON으로 바꿔서 넣음
+    localStorage.setItem('data',JSON.stringify(obj))
+
+    // String형
+    let name = localStorage.getItem('name')
+    console.log(name)
+
+    // 객체
+    let data = localStorage.getItem('data')
+    console.log(data) // 객체 출력
+    console.log(JSON.parse(data).tel) // JSON으로 파싱해서 key가 tel인 것에 해당하는 값만 가져옴
+
+    // localStorage에 저장된 값은 서버나 브라우저를 다시 껐다 켜도 유지됨
+
     let [stock, setStock] = useState([10,11,12]); // stock에 배열 값을 넣어서 사용
     let [cafes,setCafes] = useState(cList);
     // console.log(cList);
 
     let navigate = useNavigate();
     let [btnCount, setBtnCount] = useState(2);
-  return (
+
+    // storage로 장바구니 기능 만들기 - 배열로 만들어야됨
+    // 로컬저장소에 []빈 배열이 생성됨
+    useEffect(() => {
+        if(localStorage.getItem('watched') == null) // watched가 존재하지 않을 때 아래 구문 실행
+            localStorage.setItem('watched',JSON.stringify([]))
+    }, []);
+
+    /*
+    이건 기존의 방식은 아래와 같음
+    axios.get('url')
+        .then(()=>{})
+    자동으로 갱신되는 react-query설치 후에는 아래처럼 useQuery를 사용함
+    get('url')을 실행해서 찾아낸 객체 값을 useQuery()에 적어주면 됨
+    */
+
+    // 재전송에 관한 것은 useQuery가 관장함
+    /*
+    쌤이 이걸로 해줄랬는데 실패
+    let result = useQuery('userdata',()=>{
+        axios.get('https://raw.githubusercontent.com/professorjiwon/data/main/userdata.json')
+            .then((result)=>{
+                return result.data
+            })
+    })
+    */
+
+    const [resultData, setResultData] = useState('');
+
+    useQuery('userdata', () => {
+        axios.get('https://raw.githubusercontent.com/professorjiwon/data/main/userdata.json')
+            .then((result) => {
+                console.log(result);
+                console.log(result.data.name);
+                setResultData(result.data.name);
+            })
+    })
+
+    return (
     <div className="App">
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
@@ -56,6 +127,8 @@ function App() {
             <Nav.Link onClick={()=>{navigate('/cart')}}>Cart</Nav.Link>
             <Nav.Link onClick={()=>{navigate(-1)}}>뒤로</Nav.Link>
           </Nav>
+          {/*<Nav className="me-auto">{result.isLoading ? '로딩중' : result.name}님 어서오쇼</Nav>*/}
+          <Nav className="me-auto">{resultData}님 환영합니다</Nav>
         </Container>
       </Navbar>
 
@@ -150,11 +223,11 @@ function App() {
             <Route path='/cart' element={<Cart/>}/>
             <Route path='*' element={<div>404 Not Found</div>}/> {/*404페이지*/}
 
-            <Route path='/detail/:id' element={
+            {/*<Route path='/detail/:id' element={
                 <Context1.Provider value={{stock,cafes}}>
                     <Detail cafes={cafes}/>
                 </Context1.Provider>
-            }/>
+            }/>*/}
             {/*detail이라는 컴포넌트를 넣으면서 props값을 넘겨준게 됨*/}
 
             {/* /detail/0/키값 */}

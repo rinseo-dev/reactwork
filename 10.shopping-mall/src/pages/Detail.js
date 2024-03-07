@@ -5,11 +5,6 @@ import './../App.css';
 import {useDispatch, useSelector} from "react-redux";
 import {addCart, decrease} from "../store";
 
-
-/*
-    Redux 사용
-    1) 설치 : npm i @reduxjs/toolkit@1.8.1 react-redux
- */
 function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
     // App.js에서 Route path='/detail' element={<Detail cafes={cafes}/>넘긴거 props로 받아옴
     // url옆에 넣은 값을 useParams()로 가져올 수 있음
@@ -40,6 +35,27 @@ function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
             setFade2('')
         }
     },[])
+
+    // storage 장바구니
+    useEffect(() => {
+        // console.log("출력: " + findId.id) // 출력값에 아이디 뜨는거 확인
+
+        // 이렇게만 작성하면 배열이 무시되고 직접 값을 넣는게 됨
+        // localStorage.setItem('watched',findId.id) // 만들어둔 watched에 id를 넣게함
+        //실행해보면 watched로 만들어진 빈 배열[]은 사라지고 key: watched , value : 0 으로 들어옴
+        // 그래서 push로 넣어줘야 배열 안에 키 0이 들어감
+
+        // w변수에 watched 빈 배열을 넣어서 사용
+        let w = localStorage.getItem('watched')
+        w = JSON.parse(w) // JSON으로 파싱해서 사용해야 함
+       
+        w.push(findId.id)
+
+        w = new Set(w)// 중복제거
+        w = Array.from(w)
+
+        localStorage.setItem('watched',JSON.stringify(w))
+    },[]); // []를 넣어줘야 처음 한번 실행때만 저장됨
 
 
     return(
