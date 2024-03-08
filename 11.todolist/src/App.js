@@ -76,13 +76,25 @@ function App() {
             todo=> todo.id == targetId ? {...todo,isDone:!todo.isDone}:todo)
         )
     }
-    
+
+    // onDelete도 TotoItem.js에 넘겨서 실행
+    const onDelete = (targetId) => {
+        //(t odo)=>t odo.id이렇게 하면 값이 하나가 반환이 됨
+        // targetId와 todo에 들어온 id가 같은지 확인하고 같으면 true가 반환됨
+        // targetId에 2가 들어왔을 때 t odo.id가 2인경우가 true이므로 [{2}]가 들어옴
+        setTodos(todos.filter((todo)=> todo.id != targetId))
+        // to do.id != targetId로 지정하면 targetId와 값이 일치하지 않는 to do.id를 찾아서
+        // setTodos에 입력해주게 되고 todos에 값이 넘어감
+        // 그러면 삭제를 하기 위해 선택한 targetId를 제외한 나머지가 todos에 들어가므로
+        // 삭제 기능을 수행하게 되는 것
+
+    } 
 
   return (
     <div className="App">
       <Header/>
       <Editor onCreate={onCreate}/>
-      <List todos={todos} onUpdate={onUpdate}/>
+      <List todos={todos} onUpdate={onUpdate} onDelete={onDelete}/>
         {/*App에서 List로 갈 때 todos를 넘겨줌/ List에 onUpdate넣어줘야함*/}
     </div>
   );

@@ -4,6 +4,8 @@ import styled from "styled-components";
 import {useEffect, useState} from "react";
 
 /*
+    **클래스형 컴포넌트
+
    - Lifecycle(생명주기)
      class Detail extends React.Component{
          componentDidMount(){

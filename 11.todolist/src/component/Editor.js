@@ -9,11 +9,11 @@ const Editor= ({onCreate}) =>{ // props로 가져오지 않고 onCreate값을 �
 
     return (
         <div className="Editor">
-            <input value={content} ref={contentRef} placeholder="TodoList 추가"
+            <input value={content} ref={contentRef} placeholder="Todo1List 추가"
              // onChange : 어떤 이벤트가 발생했다면
              onChange={(e)=>{
-                 setContent(e.target.value)
-;             }}/>
+                 setContent(e.target.value);
+             }}/>
             {/*이벤트가 발생한건 모두 e라는 매개변수로 들어가서 setContent에 들어가고,
             e가 발생한곳에 값을 가져와서 content에 넣는것*/}
             <button onClick={()=>{

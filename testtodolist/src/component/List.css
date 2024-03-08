@@ -3,18 +3,22 @@
     flex-direction: column;
     gap:10px;
 }
+
 .List input{
     width:100%;
     border:none;
     border-bottom:1px solid lightgray;
     padding : 15px 0;
+
 }
 
 .List input:focus{
     outline:none;
     border-bottom:1px solid darkslategray;
+    background: rgba(60,179,113,.1);
 }
 .List .todos_wrapper {
+    margin-top:30px;
     display: flex;
     flex-direction: column;
     gap: 20px;

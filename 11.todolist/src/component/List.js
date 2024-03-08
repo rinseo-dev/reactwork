@@ -2,7 +2,7 @@ import './List.css'
 
 import TodoItem from "./TodoItem";
 import {useState} from "react";
-const List =({todos,onUpdate})=>{ // props 또는 {todos}로 받음
+const List =({todos,onUpdate,onDelete})=>{ // props 또는 {todos}로 받음
     const [search,setSearch] = useState("");
     const getFilterData = () =>{
         if(search == ""){
@@ -34,7 +34,7 @@ const List =({todos,onUpdate})=>{ // props 또는 {todos}로 받음
                         <TodoItem {...t odo}/>
                     )*/
                     filteredTodos.map(todo=>
-                        <TodoItem {...todo} onUpdate={onUpdate}/>
+                        <TodoItem {...todo} onUpdate={onUpdate} onDelete={onDelete}/>
                         /*여기는 {onUpdate}라는 props로 넘겨준 값을 받은것, TodoItem도 받아야함*/
                     )
                 }

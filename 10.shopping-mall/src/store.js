@@ -94,7 +94,6 @@ let user2 =  createSlice({
 */
 // export let { changeObj ,changeAge} = user2.actions
 
-
 export default configureStore({ // 만들걸 reducer로 가져옴
     reducer : { // 여기 내부에 있는 모든게 state
         user:user.reducer,
@@ -102,7 +101,5 @@ export default configureStore({ // 만들걸 reducer로 가져옴
         menu:menu.reducer,
         member : member.reducer,
         user2 : user2.reducer,
-        
-
     }
 });
