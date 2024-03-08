@@ -10,6 +10,7 @@ const Editor= ({onCreate}) =>{ // props로 가져오지 않고 onCreate값을 �
     return (
         <div className="Editor">
             <input value={content} ref={contentRef} placeholder="TodoList 추가"
+             // onChange : 어떤 이벤트가 발생했다면
              onChange={(e)=>{
                  setContent(e.target.value)
 ;             }}/>

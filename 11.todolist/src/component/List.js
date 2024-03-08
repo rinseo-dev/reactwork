@@ -10,8 +10,8 @@ const List =({todos,onUpdate})=>{ // props 또는 {todos}로 받음
             // 검색 값이 없을 때는 기본 리스트 그대로 띄움
         }
         return todos.filter((todo)=>
-            //todo.content.includes(search)
-            // include()함수 : todo.content와 search가 같으면 true반환, 다르면 false 반환
+            //t odo.content.includes(search)
+            // include()함수 : t odo.content와 search가 같으면 true반환, 다르면 false 반환
 
             todo.content.toLowerCase().includes(search.toLowerCase())
             // 대소문자 구분없이 검색 가능하게 하기 위해서 toLowerCase()를 넣음
@@ -30,8 +30,8 @@ const List =({todos,onUpdate})=>{ // props 또는 {todos}로 받음
                     onChange={(e)=>{setSearch(e.target.value)}}/>
             <div className='todos_wrapper'>
                 {
-                    /*todos.map(todo=>
-                        <TodoItem {...todo}/>
+                    /*todos.map(t odo=>
+                        <TodoItem {...t odo}/>
                     )*/
                     filteredTodos.map(todo=>
                         <TodoItem {...todo} onUpdate={onUpdate}/>
