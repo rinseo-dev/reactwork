@@ -40,8 +40,9 @@ import Detail from "./pages/Detail";
         ** 이전에는 여러페이지를 가지고 불러오기로 보여줬다면,
            여기서는 페이지는 하나고 안에 있는 내용이 들어옴
 
+    ** route 사용 시 설치 필요
    - router-dom : 페이지 교체시켜주는 api
-     1) 설치 : npm i react-router-dom ** i = install
+     1) 설치 : npm i react-router-dom    ** i = install
      2) index.js에서 import :
        import{BrowserRouter} from "react-router-dom";
            <BrowserRouter>

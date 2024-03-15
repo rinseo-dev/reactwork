@@ -80,12 +80,11 @@ const Body = () =>{
             {/*익명함수여서 function()이 빠진 상태*/}
            {/* <button onClick={() => {alert("기본맛")}}>B버튼이벤트</button>*/}
             <br/><br/>
-            <Button {...btnProps}/>
+            <Button {...btnProps}/> {/*btnProps를 풀어서 넘겨줌*/}
             <Button/>
         </div>
     )
 }
-
 
 
 export default Body;

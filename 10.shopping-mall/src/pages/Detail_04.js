@@ -83,7 +83,7 @@ function Detail(props){ // cafes={cafes} 넘긴걸 props로 받은 것
     )
 }
 
-// 깃허브
+
 function TabContent({tab}){
     let [fade,setFade] = useState('');
 
